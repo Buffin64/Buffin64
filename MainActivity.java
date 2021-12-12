@@ -1,39 +1,48 @@
-package com.example.table;
+package com.example.eventdemo;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-
-public class MainActivity extends Activity{
-ListView lv;
-RelativeLayout rl;
-    @Override  
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-         
-        rl=new RelativeLayout(this);
-        lv=new ListView(this);
-       RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT); 
-        lv.setLayoutParams(param);
-        rl.setLayoutParams(param);
-        //setContentView(R.layout.activity_main);
-        setContentView(rl);
-        
-        String games[]=new String[]{"football","netball","volleyball","hockey"};
-        ArrayAdapter<String>adp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,games);
-        lv.setAdapter(adp);
-        
-    }
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
+public class MainActivity extends Activity implements OnClickListener{
+Button btninner, btnimp;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		btnimp=(Button)findViewById(R.id.btnimp);
+		btnimp.setOnClickListener(this);
+		
+		btninner=(Button)findViewById(R.id.btninner);
+		btninner.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplication(),"This is an inner class", Toast.LENGTH_LONG).show();
+			
+			}});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+public void doclick(View v){
+	Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+}
+
+@Override
+public void onClick(View arg0) {
+	// TODO Auto-generated method stub
+	Toast.makeText(getApplicationContext(), "This is an implemented class", Toast.LENGTH_LONG).show();
+}
 }
