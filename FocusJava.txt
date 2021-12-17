@@ -1,0 +1,68 @@
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends ActionBarActivity {
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_main);
+      final EditText txtUserName=(EditText)findViewById(R.id.txtusername);
+      final EditText txtPassword=(EditText)findViewById(R.id.txtpassword);
+      txtUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+           if(!hasFocus){
+              EditText txtUser=(EditText)v;
+              String userName=txtUser.getText().toString();
+              if(userName.trim().equals("")){
+                showInputBox(MainActivity.this, "Please input user name",txtUser);
+              }
+           }
+        }
+      });
+      txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+           if(!hasFocus){
+              EditText txtPwd=(EditText)v;
+              String password=txtPwd.getText().toString();
+              if(password.trim().equals("")){
+                showInputBox(MainActivity.this, "Please input password",txtPwd);
+              }
+           }
+        }
+      });
+   }
+
+   public void showInputBox(final Context context,String message,final EditText txt){
+      // Create dialog instance
+      final Dialog dialog = new Dialog(context);
+      // Set dialog title
+      dialog.setTitle("Input box");
+      // Set dialog layout
+      dialog.setContentView(R.layout.input_box);
+      TextView tvMess=(TextView)dialog.findViewById(R.id.txtmessage);
+      tvMess.setText(message);
+      tvMess.setTextColor(Color.parseColor("#ff2222"));
+      Button btDone=(Button)dialog.findViewById(R.id.btdone);
+      final EditText txtInput=(EditText)dialog.findViewById(R.id.txtinput);
+      txtInput.setText(txt.getText().toString());
+      txtInput.setInputType(txt.getInputType());
+      btDone.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+           txt.setText(txtInput.getText().toString());
+           dialog.dismiss();
+        }
+      });
+      dialog.show();
+   }
+}

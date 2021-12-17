@@ -1,0 +1,34 @@
+public class MainActivity extends Activity{
+	Button button;
+	TextView tvOutput;
+	EditText ed_data;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ed_data = (EditText)findViewById(R.id.the_content);
+        button = (Button)findViewById(R.id.but_display);
+        tvOutput=(TextView)findViewById(R.id.tv_display);
+        
+        //button.setOnClickListener(this);  
+        
+        OnClickListener myListener = new
+        		OnClickListener() {
+					public void onClick(View v) {
+				CharSequence dat=	ed_data.getText();
+				tvOutput.setText(dat);
+				createMessage(dat);
+					}
+        		
+        		};
+       	
+        		button.setOnClickListener(myListener); 
+        }
+  void createMessage(CharSequence s){
+	Toast.makeText(this, s, Toast.LENGTH_LONG).show();	
+
+  }
+    
+	
+	
+	}
